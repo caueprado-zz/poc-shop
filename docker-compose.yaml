@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  db.portal.dev:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'portal'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: '1234'
+      MYSQL_ROOT_PASSWORD: '1234'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+     - PMA_ARBITRARY=1
+    restart: always
+    ports:
+     - 8080:80
+    volumes:
+     - /sessions
+volumes:
+  my-db:
